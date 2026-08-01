@@ -1,4 +1,4 @@
-[English](#Kill `antialiased`: Restore Native macOS Font Rendering) | [中文](#中文说明)
+[English](#Kill-antialiased-Restore-Native-macOS-Font-Rendering) | [中文](#中文说明)
 # Kill `antialiased`: Restore Native macOS Font Rendering
 
 On macOS, many frontend frameworks and websites abuse `-webkit-font-smoothing: antialiased;`, resulting in skinny, faint text that causes severe eye strain. 
