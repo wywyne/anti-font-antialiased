@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Font Smoothing",
+  "version": "1.0",
+  "description": "彻底强制使用 -webkit-font-smoothing: auto，干掉 antialiased，支持穿透 Shadow DOM 和 iframe。",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "css": ["inject.css"]
+    },
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "js": ["shadow-dom-patch.js"],
+      "world": "MAIN"
+    }
+  ]
+}
