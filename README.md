@@ -9,7 +9,7 @@ Designed specifically for **macOS** and **Chromium-based browsers**, this extens
 
 Stop abusing font-smoothing! Leave font rendering to the operating system.
 
-Whether you are writing CSS yourself, relying on AI code generation, or copying snippets from somewhere else: -webkit-font-smoothing: antialiased is NOT a universal best practice. It strips away subpixel rendering, making fonts thin, weak, and hard to read on many macOS setups.
+Whether you are writing CSS yourself, relying on AI code generation, or copying snippets from somewhere else: -webkit-font-smoothing: antialiased is NOT a universal best practice. It makes fonts thin, weak, and hard to read.
 
 For a deeper dive into why this practice is harmful, check out this classic article from 2012:
 👉 [Stop Fixing Font Smoothing](https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/)
@@ -89,7 +89,7 @@ If you have custom themes enabled, add the following to your chrome/userContent.
 
 **请停止滥用 `font-smoothing`！请把字体渲染的决定权交还给操作系统。**
 
-无论你是自己手写 CSS、依赖 AI 生成代码，还是习惯性地从样式库中复制粘贴：**`-webkit-font-smoothing: antialiased` 绝不是什么“最佳实践”**。它强行剥离了次像素渲染（Subpixel Rendering），导致字体在大部分 macOS 设备上显得纤细、发灰且极难阅读。
+无论你是自己手写 CSS、依赖 AI 生成代码，还是习惯性地从样式库中复制粘贴：**`-webkit-font-smoothing: antialiased` 绝不是什么“最佳实践”**。它导致字体显得纤细、对眼睛不友好。
 
 关于为什么滥用此属性是有害的，强烈推荐阅读这篇 2012 年的经典文章：  
 👉 [Stop Fixing Font Smoothing](https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/)
