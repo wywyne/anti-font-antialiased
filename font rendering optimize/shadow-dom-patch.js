@@ -1,22 +1,17 @@
-(function () {
+(() => {
   'use strict';
 
   const CSS_RULE = `
-    :not(#__a):not(#__b):not(#__c) *:not(.no-font-fix),
-    :not(#__a):not(#__b):not(#__c) *:not(.no-font-fix)::before,
-    :not(#__a):not(#__b):not(#__c) *:not(.no-font-fix)::after {
+    :not(#__a):not(#__b):not(#__c) *,
+    :not(#__a):not(#__b):not(#__c) *::before,
+    :not(#__a):not(#__b):not(#__c) *::after {
       -webkit-font-smoothing: auto !important;
       text-rendering: auto !important;
     }
   `;
 
-  let smoothingSheet;
-  try {
-    smoothingSheet = new CSSStyleSheet();
-    smoothingSheet.replaceSync(CSS_RULE);
-  } catch (e) {
-    return;
-  }
+  const smoothingSheet = new CSSStyleSheet();
+  smoothingSheet.replaceSync(CSS_RULE);
 
   const originalAttachShadow = Element.prototype.attachShadow;
 
@@ -24,19 +19,14 @@
     const shadowRoot = originalAttachShadow.call(this, init);
 
     try {
-      const currentSheets = Array.from(shadowRoot.adoptedStyleSheets || []);
-      if (!currentSheets.includes(smoothingSheet)) {
-        currentSheets.push(smoothingSheet);
-        shadowRoot.adoptedStyleSheets = currentSheets;
+      if (!shadowRoot.adoptedStyleSheets.includes(smoothingSheet)) {
+        shadowRoot.adoptedStyleSheets = [
+          ...shadowRoot.adoptedStyleSheets,
+          smoothingSheet,
+        ];
       }
-    } catch (e) {
-      try {
-        const style = document.createElement('style');
-        style.textContent = CSS_RULE;
-        shadowRoot.appendChild(style);
-      } catch (innerErr) {
-        // 静默失败
-      }
+    } catch (_) {
+      // 保证任何异常都不会影响页面创建 Shadow DOM
     }
 
     return shadowRoot;
