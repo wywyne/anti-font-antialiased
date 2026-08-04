@@ -1,4 +1,4 @@
-(() => {
+(function () {
   'use strict';
 
   const CSS_RULE = `
@@ -10,8 +10,13 @@
     }
   `;
 
-  const smoothingSheet = new CSSStyleSheet();
-  smoothingSheet.replaceSync(CSS_RULE);
+  let smoothingSheet;
+  try {
+    smoothingSheet = new CSSStyleSheet();
+    smoothingSheet.replaceSync(CSS_RULE);
+  } catch (e) {
+    return;
+  }
 
   const originalAttachShadow = Element.prototype.attachShadow;
 
@@ -19,14 +24,19 @@
     const shadowRoot = originalAttachShadow.call(this, init);
 
     try {
-      if (!shadowRoot.adoptedStyleSheets.includes(smoothingSheet)) {
-        shadowRoot.adoptedStyleSheets = [
-          ...shadowRoot.adoptedStyleSheets,
-          smoothingSheet,
-        ];
+      const currentSheets = Array.from(shadowRoot.adoptedStyleSheets || []);
+      if (!currentSheets.includes(smoothingSheet)) {
+        currentSheets.push(smoothingSheet);
+        shadowRoot.adoptedStyleSheets = currentSheets;
       }
-    } catch (_) {
-      // 保证任何异常都不会影响页面创建 Shadow DOM
+    } catch (e) {
+      try {
+        const style = document.createElement('style');
+        style.textContent = CSS_RULE;
+        shadowRoot.appendChild(style);
+      } catch (innerErr) {
+        // 静默失败
+      }
     }
 
     return shadowRoot;
