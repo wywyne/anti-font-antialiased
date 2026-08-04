@@ -1,11 +1,6 @@
-/* 
-  利用 :not 叠加三个绝对不存在的 ID，使其 CSS 权重飙升至 (3,0,0)。
-  这种“降维打击”可以彻底碾压网页自带的 * 规则。
-  同时覆盖全部伪元素 (before/after)。
-*/
-:not(#__a):not(#__b):not(#__c) *,
-:not(#__a):not(#__b):not(#__c) *::before,
-:not(#__a):not(#__b):not(#__c) *::after {
+:not(#__a):not(#__b):not(#__c) *:not(.no-font-fix),
+:not(#__a):not(#__b):not(#__c) *:not(.no-font-fix)::before,
+:not(#__a):not(#__b):not(#__c) *:not(.no-font-fix)::after {
   -webkit-font-smoothing: auto !important;
   text-rendering: auto !important;
 }
