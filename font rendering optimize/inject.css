@@ -1,6 +1,6 @@
-:not(#__a):not(#__b):not(#__c) *:not(.no-font-fix),
-:not(#__a):not(#__b):not(#__c) *:not(.no-font-fix)::before,
-:not(#__a):not(#__b):not(#__c) *:not(.no-font-fix)::after {
+:not(#__a):not(#__b):not(#__c) *,
+:not(#__a):not(#__b):not(#__c) *::before,
+:not(#__a):not(#__b):not(#__c) *::after {
   -webkit-font-smoothing: auto !important;
   text-rendering: auto !important;
 }
